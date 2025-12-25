@@ -61,3 +61,60 @@ pnpm format       # Format code with oxfmt
 - **Popup** sends messages to **Background** (Service Worker)
 - **Background** uses `browser.tabs` and `browser.tabGroups` APIs
 - URL parsing logic is in `lib/url-parser.ts` (domain extraction, matching)
+
+## TypeScript & WXT
+
+### Browser API の型定義
+
+WXTでは`browser` APIを使用する際、明示的にインポートが必要:
+
+```typescript
+import { browser, type Browser } from 'wxt/browser'
+
+type Tab = Browser.tabs.Tab
+```
+
+**注意**: グローバルな`browser`変数はランタイムで自動注入されるが、`tsc --noEmit`での型チェック時にはインポートが必要。
+
+### tabs.group() の型
+
+`browser.tabs.group()`の`tabIds`引数は`number | [number, ...number[]]`型（非空タプル）を期待する。`number[]`をそのまま渡すと型エラーになるため、分割代入で変換:
+
+```typescript
+const [firstTabId, ...restTabIds] = tabIds
+if (firstTabId === undefined) {
+  throw new Error('No tabs to group')
+}
+await browser.tabs.group({ tabIds: [firstTabId, ...restTabIds] })
+```
+
+### 型チェックコマンド
+
+TypeScriptはdevDependenciesに含まれていないため、pnpm経由で実行:
+
+```bash
+pnpm wxt prepare                                    # WXT型定義を生成
+./node_modules/.pnpm/node_modules/.bin/tsc --noEmit # 型チェック
+```
+
+## Testing
+
+### wxt/browser モジュールのモック
+
+テストでは`wxt/browser`モジュールをモックする必要がある（`tests/setup.ts`）:
+
+```typescript
+vi.mock('wxt/browser', () => ({
+  browser: mockBrowser,
+  Browser: {},
+}))
+```
+
+### 部分的なTabオブジェクトのモック
+
+テストで部分的なTabオブジェクトを使用する場合、eslint-disableコメントを追加:
+
+```typescript
+// eslint-disable-next-line @typescript-eslint/consistent-type-assertions, @typescript-eslint/no-unsafe-type-assertion -- Test mock requires partial Tab object
+const currentTab = { id: 1, url: 'https://example.com' } as Tab
+```
