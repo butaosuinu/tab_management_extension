@@ -7,7 +7,20 @@
       "Bash(pnpm test:*)",
       "Bash(pnpm wxt prepare:*)",
       "Bash(pnpm build:*)",
-      "Bash(pnpm lint:*)"
+      "Bash(pnpm lint:*)",
+      "Bash(npx tsc:*)",
+      "Bash(grep:*)",
+      "Bash(cat:*)",
+      "Bash(git worktree add:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(./node_modules/.bin/tsc:*)",
+      "Bash(pnpm exec tsc:*)",
+      "Bash(./node_modules/.pnpm/node_modules/.bin/tsc:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr create:*)"
     ]
   }
 }
