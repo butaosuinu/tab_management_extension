@@ -1,3 +1,4 @@
+import { browser, type Browser } from 'wxt/browser'
 import { closeSameDomainTabs, closeSameSubdomainTabs, closeSameSubdirectoryTabs, groupSameDomainTabs } from '@/lib/tab-utils'
 import type { Message, ActionResponse, ActionType } from '@/types'
 
@@ -48,7 +49,7 @@ export default defineBackground(() => {
   )
 })
 
-async function executeAction(action: ActionType, tab: browser.Tabs.Tab): Promise<ActionResponse> {
+async function executeAction(action: ActionType, tab: Browser.tabs.Tab): Promise<ActionResponse> {
   try {
     switch (action) {
       case 'CLOSE_SAME_DOMAIN': {

@@ -1,6 +1,7 @@
+import { browser, type Browser } from 'wxt/browser'
 import { matchesDomain, matchesSubdomain, matchesSubdirectory, parseURL } from './url-parser'
 
-type Tab = browser.tabs.Tab
+type Tab = Browser.tabs.Tab
 
 /**
  * Close all tabs with the same domain as the current tab
@@ -108,12 +109,13 @@ export async function groupSameDomainTabs(currentTab: Tab): Promise<number> {
   })
 
   const tabIds = matchingTabs.map((tab) => tab.id).filter((id): id is number => id !== undefined)
+  const [firstTabId, ...restTabIds] = tabIds
 
-  if (tabIds.length === 0) {
+  if (firstTabId === undefined) {
     throw new Error('No tabs to group')
   }
 
-  const groupId = await browser.tabs.group({ tabIds })
+  const groupId = await browser.tabs.group({ tabIds: [firstTabId, ...restTabIds] })
 
   await browser.tabGroups.update(groupId, {
     title: parsed.domain,

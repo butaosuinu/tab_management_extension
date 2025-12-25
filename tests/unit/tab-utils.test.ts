@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest'
+import type { Browser } from 'wxt/browser'
 import { mockBrowser } from '../setup'
 import {
   closeSameDomainTabs,
@@ -6,9 +7,12 @@ import {
   closeSameSubdirectoryTabs,
 } from '@/lib/tab-utils'
 
+type Tab = Browser.tabs.Tab
+
 describe('closeSameDomainTabs', () => {
   it('should close current tab when it matches the domain', async () => {
-    const currentTab = { id: 1, url: 'https://example.com/page1' }
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions, @typescript-eslint/no-unsafe-type-assertion -- Test mock requires partial Tab object
+    const currentTab = { id: 1, url: 'https://example.com/page1' } as Tab
     const tabs = [
       { id: 1, url: 'https://example.com/page1' },
       { id: 2, url: 'https://example.com/page2' },
@@ -26,7 +30,8 @@ describe('closeSameDomainTabs', () => {
 
 describe('closeSameSubdomainTabs', () => {
   it('should close current tab when it matches the subdomain', async () => {
-    const currentTab = { id: 1, url: 'https://docs.example.com/page1' }
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions, @typescript-eslint/no-unsafe-type-assertion -- Test mock requires partial Tab object
+    const currentTab = { id: 1, url: 'https://docs.example.com/page1' } as Tab
     const tabs = [
       { id: 1, url: 'https://docs.example.com/page1' },
       { id: 2, url: 'https://docs.example.com/page2' },
@@ -44,7 +49,8 @@ describe('closeSameSubdomainTabs', () => {
 
 describe('closeSameSubdirectoryTabs', () => {
   it('should close current tab when it matches the subdirectory', async () => {
-    const currentTab = { id: 1, url: 'https://example.com/docs/page1' }
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions, @typescript-eslint/no-unsafe-type-assertion -- Test mock requires partial Tab object
+    const currentTab = { id: 1, url: 'https://example.com/docs/page1' } as Tab
     const tabs = [
       { id: 1, url: 'https://example.com/docs/page1' },
       { id: 2, url: 'https://example.com/docs/page2' },

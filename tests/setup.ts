@@ -20,7 +20,13 @@ const mockBrowser = {
   },
 }
 
-// Set browser mock in global scope
+// Mock wxt/browser module
+vi.mock('wxt/browser', () => ({
+  browser: mockBrowser,
+  Browser: {},
+}))
+
+// Set browser mock in global scope (for backward compatibility)
 Object.assign(globalThis, { browser: mockBrowser })
 
 // Reset all mocks before each test
