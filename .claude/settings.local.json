@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git ls-tree:*)",
+      "Bash(tree:*)",
+      "WebSearch",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm wxt prepare:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm lint:*)"
+    ]
+  }
+}
