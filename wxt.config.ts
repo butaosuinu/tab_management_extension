@@ -5,5 +5,6 @@ export default defineConfig({
     name: "Tab Management Extension",
     description: "Manage browser tabs - close by domain, subdomain, or group tabs together",
     permissions: ["tabs", "tabGroups", "contextMenus"],
+    minimum_chrome_version: "120",
   },
 });

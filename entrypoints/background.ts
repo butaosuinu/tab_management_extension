@@ -53,37 +53,45 @@ export default defineBackground(() => {
   // Handle messages from popup
   browser.runtime.onMessage.addListener(
     (message: Message, _sender, sendResponse: (response: ActionResponse) => void) => {
-      void handleMessage(message).then(sendResponse);
+      void (async () => {
+        const response = await handleMessage(message);
+        sendResponse(response);
+      })();
       return true; // Indicates async response
     },
   );
 });
 
 async function executeAction(action: ActionType, tab: Browser.tabs.Tab): Promise<ActionResponse> {
-  try {
-    switch (action) {
-      case "CLOSE_SAME_DOMAIN": {
-        const closedCount = await closeSameDomainTabs(tab);
-        return { success: true, closedCount };
+  switch (action) {
+    case "CLOSE_SAME_DOMAIN": {
+      const result = await closeSameDomainTabs(tab);
+      if (result.success) {
+        return { success: true, closedCount: result.closedCount };
       }
-      case "CLOSE_SAME_SUBDOMAIN": {
-        const closedCount = await closeSameSubdomainTabs(tab);
-        return { success: true, closedCount };
-      }
-      case "CLOSE_SAME_SUBDIRECTORY": {
-        const closedCount = await closeSameSubdirectoryTabs(tab);
-        return { success: true, closedCount };
-      }
-      case "GROUP_BY_DOMAIN": {
-        const groupId = await groupSameDomainTabs(tab);
-        return { success: true, groupId };
-      }
+      return { success: false, error: result.error };
     }
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
-    };
+    case "CLOSE_SAME_SUBDOMAIN": {
+      const result = await closeSameSubdomainTabs(tab);
+      if (result.success) {
+        return { success: true, closedCount: result.closedCount };
+      }
+      return { success: false, error: result.error };
+    }
+    case "CLOSE_SAME_SUBDIRECTORY": {
+      const result = await closeSameSubdirectoryTabs(tab);
+      if (result.success) {
+        return { success: true, closedCount: result.closedCount };
+      }
+      return { success: false, error: result.error };
+    }
+    case "GROUP_BY_DOMAIN": {
+      const result = await groupSameDomainTabs(tab);
+      if (result.success) {
+        return { success: true, groupId: result.groupId };
+      }
+      return { success: false, error: result.error };
+    }
   }
 }
 

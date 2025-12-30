@@ -23,3 +23,11 @@ export interface ParsedURL {
   pathname: string;
   firstPathSegment: string;
 }
+
+export type CloseTabsResult =
+  | { success: true; closedCount: number }
+  | { success: false; error: string };
+
+export type GroupTabsResult =
+  | { success: true; groupId: number }
+  | { success: false; error: string };
