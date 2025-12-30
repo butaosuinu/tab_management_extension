@@ -41,7 +41,7 @@ jobs:
 
       - run: pnpm install
 
-      - run: pnpm format:check
+      - run: pnpm oxfmt --check . '!**/*.md'
 
   typecheck:
     name: Type Check
