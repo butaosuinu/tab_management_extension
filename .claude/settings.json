@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "oxfmt --write \"$CLAUDE_EDITED_FILE\""
+          }
+        ]
+      }
+    ]
+  }
+}
