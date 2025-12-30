@@ -21,6 +21,9 @@ jobs:
 
       - run: pnpm install
 
+      - name: Prepare WXT types
+        run: pnpm wxt prepare
+
       - run: pnpm lint
 
   format:
@@ -74,5 +77,8 @@ jobs:
           cache: 'pnpm'
 
       - run: pnpm install
+
+      - name: Prepare WXT types
+        run: pnpm wxt prepare
 
       - run: pnpm test run
