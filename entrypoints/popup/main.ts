@@ -24,30 +24,31 @@ function setButtonsDisabled(disabled: boolean): void {
 async function sendAction(action: ActionType): Promise<void> {
   setButtonsDisabled(true);
 
-  try {
-    const response = await browser.runtime.sendMessage<{ action: ActionType }, ActionResponse>({
+  const response = await browser.runtime
+    .sendMessage<{ action: ActionType }, ActionResponse>({
       action,
-    });
+    })
+    .catch((error: unknown) => ({
+      success: false as const,
+      error: error instanceof Error ? error.message : "エラーが発生しました",
+    }));
 
-    if (response.success) {
-      switch (action) {
-        case "CLOSE_SAME_DOMAIN":
-        case "CLOSE_SAME_SUBDOMAIN":
-        case "CLOSE_SAME_SUBDIRECTORY":
-          showStatus(`${String(response.closedCount ?? 0)}個のタブを閉じました`);
-          break;
-        case "GROUP_BY_DOMAIN":
-          showStatus("タブをグループ化しました");
-          break;
-      }
-    } else {
-      showStatus(response.error ?? "エラーが発生しました", true);
+  if (response.success) {
+    switch (action) {
+      case "CLOSE_SAME_DOMAIN":
+      case "CLOSE_SAME_SUBDOMAIN":
+      case "CLOSE_SAME_SUBDIRECTORY":
+        showStatus(`${String(response.closedCount ?? 0)}個のタブを閉じました`);
+        break;
+      case "GROUP_BY_DOMAIN":
+        showStatus("タブをグループ化しました");
+        break;
     }
-  } catch (error) {
-    showStatus(error instanceof Error ? error.message : "エラーが発生しました", true);
-  } finally {
-    setButtonsDisabled(false);
+  } else {
+    showStatus(response.error ?? "エラーが発生しました", true);
   }
+
+  setButtonsDisabled(false);
 }
 
 document.addEventListener("DOMContentLoaded", () => {

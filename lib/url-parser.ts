@@ -3,31 +3,31 @@ import type { ParsedURL } from "@/types";
 /**
  * Parse a URL string into its components
  */
-export function parseURL(urlString: string): ParsedURL | null {
-  try {
-    const url = new URL(urlString);
-
-    // Skip non-http(s) URLs
-    if (!url.protocol.startsWith("http")) {
-      return null;
-    }
-
-    const { hostname, pathname, protocol } = url;
-    const domain = extractDomain(hostname);
-    const subdomain = extractSubdomain(hostname, domain);
-    const firstPathSegment = extractFirstPathSegment(pathname);
-
-    return {
-      protocol,
-      hostname,
-      domain,
-      subdomain,
-      pathname,
-      firstPathSegment,
-    };
-  } catch {
-    return null;
+export function parseURL(urlString: string): ParsedURL | undefined {
+  if (!URL.canParse(urlString)) {
+    return undefined;
   }
+
+  const url = new URL(urlString);
+
+  // Skip non-http(s) URLs
+  if (!url.protocol.startsWith("http")) {
+    return undefined;
+  }
+
+  const { hostname, pathname, protocol } = url;
+  const domain = extractDomain(hostname);
+  const subdomain = extractSubdomain(hostname, domain);
+  const firstPathSegment = extractFirstPathSegment(pathname);
+
+  return {
+    protocol,
+    hostname,
+    domain,
+    subdomain,
+    pathname,
+    firstPathSegment,
+  };
 }
 
 /**
@@ -111,7 +111,7 @@ export function matchesDomain(url1: string, url2: string): boolean {
   const parsed1 = parseURL(url1);
   const parsed2 = parseURL(url2);
 
-  if (parsed1 === null || parsed2 === null) {
+  if (parsed1 === undefined || parsed2 === undefined) {
     return false;
   }
 
@@ -125,7 +125,7 @@ export function matchesSubdomain(url1: string, url2: string): boolean {
   const parsed1 = parseURL(url1);
   const parsed2 = parseURL(url2);
 
-  if (parsed1 === null || parsed2 === null) {
+  if (parsed1 === undefined || parsed2 === undefined) {
     return false;
   }
 
@@ -139,7 +139,7 @@ export function matchesSubdirectory(url1: string, url2: string): boolean {
   const parsed1 = parseURL(url1);
   const parsed2 = parseURL(url2);
 
-  if (parsed1 === null || parsed2 === null) {
+  if (parsed1 === undefined || parsed2 === undefined) {
     return false;
   }
 

@@ -34,15 +34,15 @@ describe("parseURL", () => {
     });
   });
 
-  it("should return null for non-http URLs", () => {
-    expect(parseURL("chrome://extensions")).toBeNull();
-    expect(parseURL("file:///path/to/file")).toBeNull();
-    expect(parseURL("about:blank")).toBeNull();
+  it("should return undefined for non-http URLs", () => {
+    expect(parseURL("chrome://extensions")).toBeUndefined();
+    expect(parseURL("file:///path/to/file")).toBeUndefined();
+    expect(parseURL("about:blank")).toBeUndefined();
   });
 
-  it("should return null for invalid URLs", () => {
-    expect(parseURL("not a url")).toBeNull();
-    expect(parseURL("")).toBeNull();
+  it("should return undefined for invalid URLs", () => {
+    expect(parseURL("not a url")).toBeUndefined();
+    expect(parseURL("")).toBeUndefined();
   });
 });
 
