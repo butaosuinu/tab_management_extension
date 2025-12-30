@@ -1,4 +1,4 @@
-import { vi, beforeEach } from 'vitest'
+import { vi, beforeEach } from "vitest";
 
 // Mock browser API for tests
 const mockBrowser = {
@@ -18,20 +18,20 @@ const mockBrowser = {
   tabGroups: {
     update: vi.fn(),
   },
-}
+};
 
 // Mock wxt/browser module
-vi.mock('wxt/browser', () => ({
+vi.mock("wxt/browser", () => ({
   browser: mockBrowser,
   Browser: {},
-}))
+}));
 
 // Set browser mock in global scope (for backward compatibility)
-Object.assign(globalThis, { browser: mockBrowser })
+Object.assign(globalThis, { browser: mockBrowser });
 
 // Reset all mocks before each test
 beforeEach(() => {
-  vi.clearAllMocks()
-})
+  vi.clearAllMocks();
+});
 
-export { mockBrowser }
+export { mockBrowser };

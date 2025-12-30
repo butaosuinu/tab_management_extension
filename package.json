@@ -2,6 +2,13 @@
   "name": "tab-management-extension",
   "version": "1.0.0",
   "description": "Chrome extension for managing browser tabs",
+  "keywords": [
+    "browser-extension",
+    "chrome-extension",
+    "tab-management"
+  ],
+  "license": "MIT",
+  "author": "",
   "type": "module",
   "scripts": {
     "dev": "wxt",
@@ -15,14 +22,6 @@
     "format:check": "oxfmt --check .",
     "typecheck": "tsc --noEmit"
   },
-  "keywords": [
-    "chrome-extension",
-    "tab-management",
-    "browser-extension"
-  ],
-  "author": "",
-  "license": "MIT",
-  "packageManager": "pnpm@10.15.0",
   "devDependencies": {
     "@vitest/coverage-v8": "^4.0.16",
     "eslint": "^9.39.2",
@@ -33,5 +32,6 @@
     "typescript-eslint": "^8.50.1",
     "vitest": "^4.0.16",
     "wxt": "^0.20.13"
-  }
+  },
+  "packageManager": "pnpm@10.15.0"
 }

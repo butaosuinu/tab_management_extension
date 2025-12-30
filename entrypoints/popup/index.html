@@ -1,40 +1,40 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tab Manager</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-  <div class="container">
-    <h1>Tab Manager</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tab Manager</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Tab Manager</h1>
 
-    <div class="button-group">
-      <button id="close-domain" class="btn btn-danger">
-        <span class="icon">🔒</span>
-        同一ドメインを閉じる
-      </button>
+      <div class="button-group">
+        <button id="close-domain" class="btn btn-danger">
+          <span class="icon">🔒</span>
+          同一ドメインを閉じる
+        </button>
 
-      <button id="close-subdomain" class="btn btn-warning">
-        <span class="icon">🌐</span>
-        同一サブドメインを閉じる
-      </button>
+        <button id="close-subdomain" class="btn btn-warning">
+          <span class="icon">🌐</span>
+          同一サブドメインを閉じる
+        </button>
 
-      <button id="close-subdirectory" class="btn btn-info">
-        <span class="icon">📁</span>
-        同一サブディレクトリを閉じる
-      </button>
+        <button id="close-subdirectory" class="btn btn-info">
+          <span class="icon">📁</span>
+          同一サブディレクトリを閉じる
+        </button>
 
-      <button id="group-domain" class="btn btn-success">
-        <span class="icon">📑</span>
-        同一ドメインをグループ化
-      </button>
+        <button id="group-domain" class="btn btn-success">
+          <span class="icon">📑</span>
+          同一ドメインをグループ化
+        </button>
+      </div>
+
+      <div id="status" class="status"></div>
     </div>
 
-    <div id="status" class="status"></div>
-  </div>
-
-  <script type="module" src="./main.ts"></script>
-</body>
+    <script type="module" src="./main.ts"></script>
+  </body>
 </html>

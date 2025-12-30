@@ -1,72 +1,69 @@
-import type { ActionType, ActionResponse } from '@/types'
+import type { ActionType, ActionResponse } from "@/types";
 
-const STATUS_DISPLAY_DURATION_MS = 3000
+const STATUS_DISPLAY_DURATION_MS = 3000;
 
 function showStatus(message: string, isError = false): void {
-  const statusEl = document.getElementById('status')
-  if (statusEl === null) return
+  const statusEl = document.getElementById("status");
+  if (statusEl === null) return;
 
-  statusEl.textContent = message
-  statusEl.className = `status ${isError ? 'error' : 'success'}`
+  statusEl.textContent = message;
+  statusEl.className = `status ${isError ? "error" : "success"}`;
 
   setTimeout(() => {
-    statusEl.className = 'status'
-  }, STATUS_DISPLAY_DURATION_MS)
+    statusEl.className = "status";
+  }, STATUS_DISPLAY_DURATION_MS);
 }
 
 function setButtonsDisabled(disabled: boolean): void {
-  const buttons = document.querySelectorAll<HTMLButtonElement>('.btn')
+  const buttons = document.querySelectorAll<HTMLButtonElement>(".btn");
   for (const button of buttons) {
-    button.disabled = disabled
+    button.disabled = disabled;
   }
 }
 
 async function sendAction(action: ActionType): Promise<void> {
-  setButtonsDisabled(true)
+  setButtonsDisabled(true);
 
   try {
     const response = await browser.runtime.sendMessage<{ action: ActionType }, ActionResponse>({
       action,
-    })
+    });
 
     if (response.success) {
       switch (action) {
-        case 'CLOSE_SAME_DOMAIN':
-        case 'CLOSE_SAME_SUBDOMAIN':
-        case 'CLOSE_SAME_SUBDIRECTORY':
-          showStatus(`${String(response.closedCount ?? 0)}個のタブを閉じました`)
-          break
-        case 'GROUP_BY_DOMAIN':
-          showStatus('タブをグループ化しました')
-          break
+        case "CLOSE_SAME_DOMAIN":
+        case "CLOSE_SAME_SUBDOMAIN":
+        case "CLOSE_SAME_SUBDIRECTORY":
+          showStatus(`${String(response.closedCount ?? 0)}個のタブを閉じました`);
+          break;
+        case "GROUP_BY_DOMAIN":
+          showStatus("タブをグループ化しました");
+          break;
       }
     } else {
-      showStatus(response.error ?? 'エラーが発生しました', true)
+      showStatus(response.error ?? "エラーが発生しました", true);
     }
   } catch (error) {
-    showStatus(
-      error instanceof Error ? error.message : 'エラーが発生しました',
-      true
-    )
+    showStatus(error instanceof Error ? error.message : "エラーが発生しました", true);
   } finally {
-    setButtonsDisabled(false)
+    setButtonsDisabled(false);
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('close-domain')?.addEventListener('click', () => {
-    void sendAction('CLOSE_SAME_DOMAIN')
-  })
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("close-domain")?.addEventListener("click", () => {
+    void sendAction("CLOSE_SAME_DOMAIN");
+  });
 
-  document.getElementById('close-subdomain')?.addEventListener('click', () => {
-    void sendAction('CLOSE_SAME_SUBDOMAIN')
-  })
+  document.getElementById("close-subdomain")?.addEventListener("click", () => {
+    void sendAction("CLOSE_SAME_SUBDOMAIN");
+  });
 
-  document.getElementById('close-subdirectory')?.addEventListener('click', () => {
-    void sendAction('CLOSE_SAME_SUBDIRECTORY')
-  })
+  document.getElementById("close-subdirectory")?.addEventListener("click", () => {
+    void sendAction("CLOSE_SAME_SUBDIRECTORY");
+  });
 
-  document.getElementById('group-domain')?.addEventListener('click', () => {
-    void sendAction('GROUP_BY_DOMAIN')
-  })
-})
+  document.getElementById("group-domain")?.addEventListener("click", () => {
+    void sendAction("GROUP_BY_DOMAIN");
+  });
+});
