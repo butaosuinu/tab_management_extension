@@ -1,67 +1,67 @@
-import { describe, it, expect } from 'vitest'
-import type { Browser } from 'wxt/browser'
-import { mockBrowser } from '../setup'
+import { describe, it, expect } from "vitest";
+import type { Browser } from "wxt/browser";
+import { mockBrowser } from "../setup";
 import {
   closeSameDomainTabs,
   closeSameSubdomainTabs,
   closeSameSubdirectoryTabs,
-} from '@/lib/tab-utils'
+} from "@/lib/tab-utils";
 
-type Tab = Browser.tabs.Tab
+type Tab = Browser.tabs.Tab;
 
-describe('closeSameDomainTabs', () => {
-  it('should close current tab when it matches the domain', async () => {
+describe("closeSameDomainTabs", () => {
+  it("should close current tab when it matches the domain", async () => {
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions, @typescript-eslint/no-unsafe-type-assertion -- Test mock requires partial Tab object
-    const currentTab = { id: 1, url: 'https://example.com/page1' } as Tab
+    const currentTab = { id: 1, url: "https://example.com/page1" } as Tab;
     const tabs = [
-      { id: 1, url: 'https://example.com/page1' },
-      { id: 2, url: 'https://example.com/page2' },
-      { id: 3, url: 'https://other.com' },
-    ]
-    mockBrowser.tabs.query.mockResolvedValue(tabs)
-    mockBrowser.tabs.remove.mockResolvedValue(undefined)
+      { id: 1, url: "https://example.com/page1" },
+      { id: 2, url: "https://example.com/page2" },
+      { id: 3, url: "https://other.com" },
+    ];
+    mockBrowser.tabs.query.mockResolvedValue(tabs);
+    mockBrowser.tabs.remove.mockResolvedValue(undefined);
 
-    const count = await closeSameDomainTabs(currentTab)
+    const count = await closeSameDomainTabs(currentTab);
 
-    expect(count).toBe(2)
-    expect(mockBrowser.tabs.remove).toHaveBeenCalledWith([1, 2])
-  })
-})
+    expect(count).toBe(2);
+    expect(mockBrowser.tabs.remove).toHaveBeenCalledWith([1, 2]);
+  });
+});
 
-describe('closeSameSubdomainTabs', () => {
-  it('should close current tab when it matches the subdomain', async () => {
+describe("closeSameSubdomainTabs", () => {
+  it("should close current tab when it matches the subdomain", async () => {
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions, @typescript-eslint/no-unsafe-type-assertion -- Test mock requires partial Tab object
-    const currentTab = { id: 1, url: 'https://docs.example.com/page1' } as Tab
+    const currentTab = { id: 1, url: "https://docs.example.com/page1" } as Tab;
     const tabs = [
-      { id: 1, url: 'https://docs.example.com/page1' },
-      { id: 2, url: 'https://docs.example.com/page2' },
-      { id: 3, url: 'https://api.example.com/page1' },
-    ]
-    mockBrowser.tabs.query.mockResolvedValue(tabs)
-    mockBrowser.tabs.remove.mockResolvedValue(undefined)
+      { id: 1, url: "https://docs.example.com/page1" },
+      { id: 2, url: "https://docs.example.com/page2" },
+      { id: 3, url: "https://api.example.com/page1" },
+    ];
+    mockBrowser.tabs.query.mockResolvedValue(tabs);
+    mockBrowser.tabs.remove.mockResolvedValue(undefined);
 
-    const count = await closeSameSubdomainTabs(currentTab)
+    const count = await closeSameSubdomainTabs(currentTab);
 
-    expect(count).toBe(2)
-    expect(mockBrowser.tabs.remove).toHaveBeenCalledWith([1, 2])
-  })
-})
+    expect(count).toBe(2);
+    expect(mockBrowser.tabs.remove).toHaveBeenCalledWith([1, 2]);
+  });
+});
 
-describe('closeSameSubdirectoryTabs', () => {
-  it('should close current tab when it matches the subdirectory', async () => {
+describe("closeSameSubdirectoryTabs", () => {
+  it("should close current tab when it matches the subdirectory", async () => {
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions, @typescript-eslint/no-unsafe-type-assertion -- Test mock requires partial Tab object
-    const currentTab = { id: 1, url: 'https://example.com/docs/page1' } as Tab
+    const currentTab = { id: 1, url: "https://example.com/docs/page1" } as Tab;
     const tabs = [
-      { id: 1, url: 'https://example.com/docs/page1' },
-      { id: 2, url: 'https://example.com/docs/page2' },
-      { id: 3, url: 'https://example.com/api/page1' },
-    ]
-    mockBrowser.tabs.query.mockResolvedValue(tabs)
-    mockBrowser.tabs.remove.mockResolvedValue(undefined)
+      { id: 1, url: "https://example.com/docs/page1" },
+      { id: 2, url: "https://example.com/docs/page2" },
+      { id: 3, url: "https://example.com/api/page1" },
+    ];
+    mockBrowser.tabs.query.mockResolvedValue(tabs);
+    mockBrowser.tabs.remove.mockResolvedValue(undefined);
 
-    const count = await closeSameSubdirectoryTabs(currentTab)
+    const count = await closeSameSubdirectoryTabs(currentTab);
 
-    expect(count).toBe(2)
-    expect(mockBrowser.tabs.remove).toHaveBeenCalledWith([1, 2])
-  })
-})
+    expect(count).toBe(2);
+    expect(mockBrowser.tabs.remove).toHaveBeenCalledWith([1, 2]);
+  });
+});

@@ -18,17 +18,20 @@
 ### 開発版のインストール
 
 1. このリポジトリをクローン
+
    ```bash
    git clone https://github.com/your-username/tab-management-extension.git
    cd tab-management-extension
    ```
 
 2. 依存関係をインストール
+
    ```bash
    pnpm install
    ```
 
 3. ビルド
+
    ```bash
    pnpm build
    ```
@@ -70,17 +73,17 @@ pnpm dev
 
 ### コマンド一覧
 
-| コマンド | 説明 |
-|---------|------|
-| `pnpm dev` | 開発サーバーを起動（HMR対応） |
-| `pnpm build` | 本番用にビルド |
-| `pnpm zip` | 配布用ZIPを作成 |
-| `pnpm test` | テストを実行 |
-| `pnpm test:coverage` | カバレッジ付きでテストを実行 |
-| `pnpm lint` | リンターを実行 |
-| `pnpm lint:fix` | リンターで自動修正 |
-| `pnpm format` | コードをフォーマット |
-| `pnpm typecheck` | 型チェックを実行 |
+| コマンド             | 説明                          |
+| -------------------- | ----------------------------- |
+| `pnpm dev`           | 開発サーバーを起動（HMR対応） |
+| `pnpm build`         | 本番用にビルド                |
+| `pnpm zip`           | 配布用ZIPを作成               |
+| `pnpm test`          | テストを実行                  |
+| `pnpm test:coverage` | カバレッジ付きでテストを実行  |
+| `pnpm lint`          | リンターを実行                |
+| `pnpm lint:fix`      | リンターで自動修正            |
+| `pnpm format`        | コードをフォーマット          |
+| `pnpm typecheck`     | 型チェックを実行              |
 
 ## 技術スタック
 

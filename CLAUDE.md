@@ -145,20 +145,17 @@ const currentTab = { id: 1, url: "https://example.com" } as Tab;
 #### 各テストレベルの役割と優先順位
 
 1. **Static Analysis（静的解析）** - 基盤
-
    - TypeScript 型チェック、ESLint、Prettier
    - 基本的な構文エラーや型エラーを早期発見
    - コードの品質と一貫性を保証
 
 2. **Unit Tests（ユニットテスト）** - 限定的使用
-
    - 純粋な関数、ユーティリティ関数のテスト
    - ビジネスロジックのテスト（Composable 等）
    - モック使用は最小限に抑制
    - 複雑な計算ロジックや独立した関数のみを対象
 
 3. **Integration Tests（インテグレーションテスト）** - **最重要**
-
    - **Vue SFC コンポーネントのテスト - これが最も価値が高い**
    - 実際のユーザー操作をシミュレート
    - MSW を使用して API レスポンスをモック
