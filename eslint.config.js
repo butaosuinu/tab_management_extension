@@ -3,7 +3,7 @@ import oxlint from "eslint-plugin-oxlint";
 
 export default [
   {
-    ignores: ["dist/**", ".output/**", ".wxt/**", "node_modules/**", "coverage/**"],
+    ignores: ["dist/**", ".output/**", ".wxt/**", "node_modules/**", "coverage/**", "tests/e2e/**"],
   },
   {
     ...love,

@@ -9,6 +9,10 @@ dist/
 # Test coverage
 coverage/
 
+# Test results
+test-results/
+playwright-report/
+
 # IDE
 .idea/
 .vscode/

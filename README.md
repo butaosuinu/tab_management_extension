@@ -85,23 +85,25 @@ pnpm dev
 
 ### コマンド一覧
 
-| コマンド             | 説明                          |
-| -------------------- | ----------------------------- |
-| `pnpm dev`           | 開発サーバーを起動（HMR対応） |
-| `pnpm build`         | 本番用にビルド                |
-| `pnpm zip`           | 配布用ZIPを作成               |
-| `pnpm test`          | テストを実行                  |
-| `pnpm test:coverage` | カバレッジ付きでテストを実行  |
-| `pnpm lint`          | リンターを実行                |
-| `pnpm lint:fix`      | リンターで自動修正            |
-| `pnpm format`        | コードをフォーマット          |
-| `pnpm typecheck`     | 型チェックを実行              |
+| コマンド               | 説明                          |
+| ---------------------- | ----------------------------- |
+| `pnpm dev`             | 開発サーバーを起動（HMR対応） |
+| `pnpm build`           | 本番用にビルド                |
+| `pnpm zip`             | 配布用ZIPを作成               |
+| `pnpm test`            | ユニットテストを実行          |
+| `pnpm test:coverage`   | カバレッジ付きでテストを実行  |
+| `pnpm test:e2e`        | E2Eテストを実行               |
+| `pnpm test:e2e:headed` | E2Eテストをブラウザ表示で実行 |
+| `pnpm lint`            | リンターを実行                |
+| `pnpm lint:fix`        | リンターで自動修正            |
+| `pnpm format`          | コードをフォーマット          |
+| `pnpm typecheck`       | 型チェックを実行              |
 
 ## 技術スタック
 
 - **フレームワーク**: [WXT](https://wxt.dev/) - Viteベースのブラウザ拡張機能フレームワーク
 - **言語**: TypeScript
-- **テスト**: Vitest
+- **テスト**: Vitest（ユニットテスト）、Playwright（E2Eテスト）
 - **リンター**: oxlint + ESLint (eslint-config-love)
 - **フォーマッター**: oxfmt
 
@@ -120,6 +122,8 @@ tab_management_extension/
 │   └── tab-utils.ts       # タブ操作関数
 ├── types/                 # TypeScript型定義
 ├── tests/                 # テストファイル
+│   ├── unit/              # ユニットテスト
+│   └── e2e/               # E2Eテスト（Playwright）
 └── public/icon/           # 拡張機能アイコン
 ```
 
