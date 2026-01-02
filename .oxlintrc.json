@@ -5,6 +5,7 @@
     "correctness": "error",
     "suspicious": "warn"
   },
+  "ignorePatterns": ["tests/e2e/**"],
   "rules": {
     "no-console": "warn"
   }
