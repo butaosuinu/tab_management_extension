@@ -1,8 +1,4 @@
-import {
-  test as base,
-  chromium,
-  type BrowserContext,
-} from "@playwright/test";
+import { test as base, chromium, type BrowserContext } from "@playwright/test";
 import path from "node:path";
 
 const EXTENSION_PATH = path.join(process.cwd(), ".output/chrome-mv3");
@@ -13,7 +9,7 @@ interface ExtensionFixtures {
 }
 
 export const test = base.extend<ExtensionFixtures>({
-  context: async ({ }, use) => {
+  context: async ({}, use) => {
     const context = await chromium.launchPersistentContext("", {
       headless: false,
       args: [
@@ -28,8 +24,7 @@ export const test = base.extend<ExtensionFixtures>({
 
   extensionId: async ({ context }, use) => {
     const [existingWorker] = context.serviceWorkers();
-    const background =
-      existingWorker ?? (await context.waitForEvent("serviceworker"));
+    const background = existingWorker ?? (await context.waitForEvent("serviceworker"));
 
     const [, , extensionId] = background.url().split("/");
     if (extensionId === undefined) {

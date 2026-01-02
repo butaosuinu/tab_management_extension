@@ -12,31 +12,19 @@ test.describe("Popup UI", () => {
     await expect(popupPage.locator("#group-domain")).toBeVisible();
   });
 
-  test("各ボタンが正しいテキストを表示している", async ({
-    context,
-    extensionId,
-  }) => {
+  test("各ボタンが正しいテキストを表示している", async ({ context, extensionId }) => {
     const popupPage = await context.newPage();
     await popupPage.goto(`chrome-extension://${extensionId}/popup.html`);
 
-    await expect(popupPage.locator("#close-domain")).toContainText(
-      "同一ドメインを閉じる"
-    );
-    await expect(popupPage.locator("#close-subdomain")).toContainText(
-      "同一サブドメインを閉じる"
-    );
+    await expect(popupPage.locator("#close-domain")).toContainText("同一ドメインを閉じる");
+    await expect(popupPage.locator("#close-subdomain")).toContainText("同一サブドメインを閉じる");
     await expect(popupPage.locator("#close-subdirectory")).toContainText(
-      "同一サブディレクトリを閉じる"
+      "同一サブディレクトリを閉じる",
     );
-    await expect(popupPage.locator("#group-domain")).toContainText(
-      "同一ドメインをグループ化"
-    );
+    await expect(popupPage.locator("#group-domain")).toContainText("同一ドメインをグループ化");
   });
 
-  test("ステータスエリアが初期状態で非表示である", async ({
-    context,
-    extensionId,
-  }) => {
+  test("ステータスエリアが初期状態で非表示である", async ({ context, extensionId }) => {
     const popupPage = await context.newPage();
     await popupPage.goto(`chrome-extension://${extensionId}/popup.html`);
 
@@ -44,10 +32,7 @@ test.describe("Popup UI", () => {
     await expect(statusEl).toBeHidden();
   });
 
-  test("ボタンクリック後にステータスが表示される", async ({
-    context,
-    extensionId,
-  }) => {
+  test("ボタンクリック後にステータスが表示される", async ({ context, extensionId }) => {
     const page = await context.newPage();
     await page.goto("https://example.com");
     await page.bringToFront();
